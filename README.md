@@ -421,3 +421,5 @@ int main() {
 return 0;
 }
 ```
+## Struct and Union
+### 1. Struct
