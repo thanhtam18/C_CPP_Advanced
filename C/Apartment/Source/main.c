@@ -12,7 +12,8 @@ void add(){
     scanf("%s",newMember.name);
     printf("Enter License Plates: ");
     scanf("%s",newMember.licensePlate);
-    addMember("test.csv",newMember);
+    addMember("10000_Members.csv",newMember);
+    printf("---- Added New Member ----\r\n");
 }
 
 int main(int argc, char const *argv[])

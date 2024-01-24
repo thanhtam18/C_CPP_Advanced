@@ -9,13 +9,10 @@ MemberNode* createMemberNode(Member member) {
 
 void addMember(const char* filename, Member member){
     FILE *filePtr = fopen(filename, "a+");
-    fputs("\n",filePtr);
-    fputs(member.uid,filePtr);
-    fputs(",",filePtr);
-    fputs(member.roomNumber,filePtr);
-    fputs(",",filePtr);
-    fputs(member.name,filePtr);
-    fputs(",",filePtr);
-    fputs(member.licensePlate,filePtr);
+    if (filePtr == NULL) {
+        perror("File Error");
+        return;
+    }
+    fprintf(filename, "%s,%s,%s,%s\n", member.uid, member.roomNumber, member.name, member.licensePlate);
     fclose(filePtr);
 }

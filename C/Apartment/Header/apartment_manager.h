@@ -22,6 +22,6 @@ void deleteMember(const char* filename, const char* uid);
 void editMember(const char* filename, Member updatedMember);
 int searchByUID(const Member* member, const char* uid);
 int searchByLicensePlate(const Member* member, const char* licensePlate);
-//Member searchMember(const char* filename, const char* searchValue, SearchFunction searchFunc);
+Member searchMember(const char* filename, const char* searchValue, int (*function)(const Member*, const char*));
 
 #endif
