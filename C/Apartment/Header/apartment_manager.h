@@ -3,9 +3,10 @@
 
 #include "stdio.h"
 #include "stdlib.h"
+#include "stdbool.h"
 
 typedef struct {
-char uid[20];
+char uId[20];
 char roomNumber[10]; 
 char name[50]; 
 char licensePlate[20];
