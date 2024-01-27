@@ -1,10 +1,23 @@
 #include "stdio.h"
 #include "apartment_manager.h"
+#include "main.h"
 
-typedef enum{
-    UID,
-    LICENSE_PLATE
-}Type;
+int main(int argc, char const *argv[])
+{
+    int key;
+    while(1){
+        MENU("---- Apartment Manager ----","Add Member", "Edit Member", "Delete Member", "Search Member", "Exit");
+        printf("Your choice: ");
+        scanf("%d", &key);
+        HANDLE_OPTION(key,
+                    CASE_OPTION(1,_add)
+                    CASE_OPTION(2,_edit)
+                    CASE_OPTION(3,_delete)
+                    CASE_OPTION(4,_search)
+                    );
+    }
+    return 0;
+}
 
 void _add(){
     Member newMember;
@@ -74,36 +87,4 @@ void _search(){
     }
     else
         printf("uID: %s\tRoom Number: %s\tName: %s\tLicense Plates: %s", result.uId, result.roomNumber, result.name, result.licensePlate);
-}
-
-int main(int argc, char const *argv[])
-{
-    int key;
-    while(1){
-        printf("----Apartment Manager----\r\n");
-        printf("1. Add Member\r\n");
-        printf("2. Edit Member\r\n");
-        printf("3. Delete Member\r\n");
-        printf("4. Search Member\r\n");
-        printf("0. Exit\r\n");
-        printf("Enter Your Choice: ");
-        scanf("%d",&key);
-        switch(key){
-            case 1:
-                _add();
-                break;
-            case 2:
-                _edit();
-                break;
-            case 3:
-                _delete();
-                break;
-            case 4:
-                _search();
-                break;
-            default:
-                return 0;
-        }
-    }
-    return 0;
 }
