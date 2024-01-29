@@ -2,7 +2,7 @@
     File:   apartment_manager.h
     Author: Thanh Tam
     Date:   19/1/2024
-    Description: 
+    Description: This header file declare functions for file apartment_manager.c
 */
 #ifndef _APARTMENT_H
 #define _APARTMENT_H

@@ -1,8 +1,8 @@
 /*
-    File:   main.h
+    File:   apartment_manager.h
     Author: Thanh Tam
     Date:   19/1/2024
-    Description: 
+    Description: This header file declare functions and macro for file main.c
 */
 #ifndef _MAIN_H
 #define _MAIN_H
@@ -16,9 +16,10 @@
         const char *items[] = {__VA_ARGS__};\
         int size = sizeof(items)/sizeof(items[0]);\
         printf("%s\r\n",items[0]);\
-        for(int i = 1; i<size; i++){ \
+        for(int i = 1; i<size-1; i++){ \
             PRINT_ITEM(i, items[i]); \
         } \
+        PRINT_ITEM(0, items[size-1]); \
     }while(0)
 
 #define HANDLE_OPTION(option, ...) \
