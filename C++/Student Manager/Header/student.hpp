@@ -7,6 +7,7 @@
 #ifndef _STUDENT_H
 #define _STUDENT_H
 
+#include <iostream>
 #include <string>
 
 using namespace std;

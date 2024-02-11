@@ -10,6 +10,8 @@
 #include <iostream>
 #include "student.hpp"
 #include <list>
+#include <stdarg.h>
+#include <iomanip>
 
 using namespace std;
 
@@ -35,6 +37,21 @@ using namespace std;
     default: cout << "Invalid option" << endl; break; \
     }
 
+#define SUB_MENU(...)\
+    const char *items[] = {__VA_ARGS__};\
+    int size = sizeof(items)/sizeof(items[0]);\
+    for(int i = 0; i<size-1; i++){ \
+        PRINT_ITEM(i+1, items[i]); \
+    } \
+    PRINT_ITEM(0, items[size-1]); 
+
+typedef enum{
+    NAME = 1,
+    ID
+}SearchType;
+
 void addStudent(list<SinhVien> &dataBase);
 void editStudent(list<SinhVien> &dataBase);
+void removeStudent(list<SinhVien> &dataBase);
+void searchStudent(list<SinhVien> &dataBase);
 #endif
