@@ -328,7 +328,7 @@ void displaySearchStudent(list<SinhVien> &dataBase, SearchType type, ...){
 void searchStudent(list<SinhVien> &dataBase){
     int key, id;
     string ten;
-    cout<<"------ Xoa Sinh Vien ------"<<endl;
+    cout<<"------ Tim kiem Sinh Vien ------"<<endl;
     while(1){
         SUB_MENU("Tim kiem theo ten","Tim kiem theo ID", "Quay lai");
         cout<<"Vui long chon: ";
@@ -363,4 +363,186 @@ void searchStudent(list<SinhVien> &dataBase){
         if(key == 0)
             return;
     }
+}
+
+bool soSanhTen(list<SinhVien>::iterator item1, list<SinhVien>::iterator item2){
+    int index = 0;
+    while(item1->getTenSV()[index] != '\0' && item2->getTenSV()[index]!='\0' && item1->getTenSV()[index] == item2->getTenSV()[index]){
+        index++;
+    }
+    if(((int)item1->getTenSV()[index] - (int)item2->getTenSV()[index]) > 0) 
+        return true;
+    else 
+        return false;
+}
+
+bool soSanhDiemToan(list<SinhVien>::iterator item1, list<SinhVien>::iterator item2){
+    if((item1->getDiemToan() - item2->getDiemToan()) > 0)
+        return true;
+    else
+        return false;
+}
+
+bool soSanhDiemLy(list<SinhVien>::iterator item1, list<SinhVien>::iterator item2){
+    if((item1->getDiemLy() - item2->getDiemLy()) > 0)
+        return true;
+    else
+        return false;
+}
+
+bool soSanhDiemHoa(list<SinhVien>::iterator item1, list<SinhVien>::iterator item2){
+    if((item1->getDiemHoa() - item2->getDiemHoa()) > 0)
+        return true;
+    else
+        return false;
+}
+
+bool soSanhDiemTB(list<SinhVien>::iterator item1, list<SinhVien>::iterator item2){
+    if((item1->getDiemTrungBinh() - item2->getDiemTrungBinh()) > 0)
+        return true;
+    else
+        return false;
+}
+
+void sort(list<SinhVien> &dataBase, bool (*sortFuntion)(list<SinhVien>::iterator item1, list<SinhVien>::iterator item2)){
+    for(list<SinhVien>::iterator i = dataBase.begin(); i != dataBase.end(); i++){
+        for(list<SinhVien>::iterator j = dataBase.begin(); j != dataBase.end(); j++){
+            if(sortFuntion(j,i)){   
+                SinhVien temp = *i;
+                *i = *j;
+                *j = temp; 
+            }
+        }
+    }
+}
+
+void displayListStudent(list<SinhVien> &dataBase){
+    int key;
+    cout<<"------ Danh sach Sinh Vien ------"<<endl;
+    cout<<"-------------------------------------------"<<endl;
+    int index = 0;
+    for(list<SinhVien>::iterator item = dataBase.begin(); item != dataBase.end(); item++){      
+        if(index == 0){
+            cout<<setw(6)<<left<<"STT"<<setw(6)<<left<<"|"
+                <<setw(6)<<left<<"ID"<<setw(6)<<left<<"|"
+                <<setw(6)<<left<<"Ten"<<setw(6)<<left<<"|"
+                <<setw(6)<<left<<"Tuoi"<<setw(3)<<left<<"|"
+                <<setw(10)<<left<<"Gioi Tinh"<<setw(6)<<left<<"|"
+                <<setw(6)<<left<<"Toan"<<setw(6)<<left<<"|"
+                <<setw(6)<<left<<"Ly"<<setw(6)<<left<<"|"
+                <<setw(6)<<left<<"Hoa"<<setw(6)<<left<<"|"
+                <<setw(9)<<left<<"Diem TB"<<setw(6)<<left<<"|"
+                <<setw(6)<<left<<"Xep loai"<<endl;   
+        }
+        index++;        
+        cout<<setw(6)<<left<<index<<setw(6)<<left<<"|"
+            <<setw(6)<<left<<item->getMSSV()<<setw(6)<<left<<"|"
+            <<setw(6)<<left<<item->getTenSV()<<setw(6)<<left<<"|"
+            <<setw(6)<<left<<item->getTuoi()<<setw(6)<<left<<"|"
+            <<setw(7)<<left<<((item->getGioiTinh() == NU) ? "Nu" : "Nam")<<setw(6)<<left<<"|"
+            <<setw(6)<<left<<item->getDiemToan()<<setw(6)<<left<<"|"
+            <<setw(6)<<left<<item->getDiemLy()<<setw(6)<<left<<"|"
+            <<setw(6)<<left<<item->getDiemHoa()<<setw(6)<<left<<"|"
+            <<setw(9)<<left<<item->getDiemTrungBinh()<<setw(6)<<left<<"|";
+        switch(item->getHocLuc()){
+            case GIOI:
+                cout<<setw(6)<<left<<"Gioi"<<endl;
+                break;
+            case KHA:
+                cout<<setw(6)<<left<<"Kha"<<endl;
+                break;
+            case TRUNG_BINH:
+                cout<<setw(6)<<left<<"Trung Binh"<<endl;
+                break;
+            case YEU:
+                cout<<setw(6)<<left<<"Yeu"<<endl;
+                break;
+        }
+    }
+    cout<<"-------------------------------------------"<<endl;
+    do{
+        cout<<"0. Quay lai\r\n"
+            <<"Vui long chon: ";
+        cin>>key;
+    }while(key != 0);
+}
+
+void sortStudent(list<SinhVien> &dataBase){
+    int key;
+    cout<<"------ Sap xep Sinh Vien ------"<<endl;
+    while(1){
+        SUB_MENU("Sap xep theo ten","Sap xep theo diem toan", "Sap xep theo diem ly", "Sap xep theo diem hoa", "Sap xep theo diem trung binh", "Quay lai");
+        cout<<"Vui long chon: ";
+        cin>>key;
+        switch((SortType)key){
+            case TEN:
+                sort(dataBase, soSanhTen);
+                break;
+            case DIEM_TOAN:
+                sort(dataBase, soSanhDiemToan);
+                break;
+            case DIEM_LY:
+                sort(dataBase, soSanhDiemLy);
+                break;
+            case DIEM_HOA:
+                sort(dataBase, soSanhDiemHoa);
+                break;
+            case DIEM_TB:
+                sort(dataBase, soSanhDiemTB);
+                break;
+            case 0:
+                return;
+        }
+        cout<<"Sap xep thanh cong"<<endl;
+        cout<<"-------------------------------------------"<<endl;
+        int index = 0;
+        for(list<SinhVien>::iterator item = dataBase.begin(); item != dataBase.end(); item++){      
+            if(index == 0){
+                cout<<setw(6)<<left<<"STT"<<setw(6)<<left<<"|"
+                    <<setw(6)<<left<<"ID"<<setw(6)<<left<<"|"
+                    <<setw(6)<<left<<"Ten"<<setw(6)<<left<<"|"
+                    <<setw(6)<<left<<"Tuoi"<<setw(3)<<left<<"|"
+                    <<setw(10)<<left<<"Gioi Tinh"<<setw(6)<<left<<"|"
+                    <<setw(9)<<left<<"Diem TB"<<setw(6)<<left<<"|"
+                    <<setw(6)<<left<<"Xep loai"<<endl;   
+            }
+            index++;        
+            cout<<setw(6)<<left<<index<<setw(6)<<left<<"|"
+                <<setw(6)<<left<<item->getMSSV()<<setw(6)<<left<<"|"
+                <<setw(6)<<left<<item->getTenSV()<<setw(6)<<left<<"|"
+                <<setw(6)<<left<<item->getTuoi()<<setw(6)<<left<<"|"
+                <<setw(7)<<left<<((item->getGioiTinh() == NU) ? "Nu" : "Nam")<<setw(6)<<left<<"|"
+                <<setw(9)<<left<<item->getDiemTrungBinh()<<setw(6)<<left<<"|";
+            switch(item->getHocLuc()){
+                case GIOI:
+                    cout<<setw(6)<<left<<"Gioi"<<endl;
+                    break;
+                case KHA:
+                    cout<<setw(6)<<left<<"Kha"<<endl;
+                    break;
+                case TRUNG_BINH:
+                    cout<<setw(6)<<left<<"Trung Binh"<<endl;
+                    break;
+                case YEU:
+                    cout<<setw(6)<<left<<"Yeu"<<endl;
+                    break;
+            }
+        }
+        cout<<"-------------------------------------------"<<endl;
+        cout<<"1. Sap xep kieu khac\r\n"
+            <<"0. Quay lai\r\n"
+            <<"Vui long chon: ";
+        cin>>key;
+        if(key == 0)
+            return;
+    }
+}
+
+void saveListStudent(list<SinhVien> &dataBase){
+    FILE *filePtr = fopen("database.csv", "w");
+    fprintf(filePtr, "ID,Ten,GioiTinh,Toan,Ly,Hoa,DiemTB,XepLoai\n");
+    for(auto item : dataBase){
+        fprintf(filePtr, "%d,%s,%s,%0.1f,%0.1f,%0.1f,%0.1f\n", item.getMSSV(), item.getTenSV().c_str(), (item.getGioiTinh() == NU) ? "Nu" : "Nam", item.getDiemToan(), item.getDiemLy(), item.getDiemHoa(), item.getDiemTrungBinh());
+    }
+    fclose(filePtr);
 }

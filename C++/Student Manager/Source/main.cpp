@@ -41,6 +41,9 @@ int main(int argc, char const *argv[])
                     CASE_OPTION(2,editStudent,dataBaseStudent)
                     CASE_OPTION(3,removeStudent,dataBaseStudent)
                     CASE_OPTION(4,searchStudent,dataBaseStudent)
+                    CASE_OPTION(5,sortStudent,dataBaseStudent)
+                    CASE_OPTION(6,displayListStudent,dataBaseStudent)
+                    CASE_OPTION(7,saveListStudent,dataBaseStudent)
                     );
     }
     return 0;

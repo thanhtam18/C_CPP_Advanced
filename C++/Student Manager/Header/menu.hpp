@@ -50,8 +50,19 @@ typedef enum{
     ID
 }SearchType;
 
+typedef enum{
+    TEN = 1,
+    DIEM_TOAN,
+    DIEM_LY,
+    DIEM_HOA,
+    DIEM_TB
+}SortType;
+
 void addStudent(list<SinhVien> &dataBase);
 void editStudent(list<SinhVien> &dataBase);
 void removeStudent(list<SinhVien> &dataBase);
 void searchStudent(list<SinhVien> &dataBase);
+void sortStudent(list<SinhVien> &dataBase);
+void displayListStudent(list<SinhVien> &dataBase);
+void saveListStudent(list<SinhVien> &dataBase);
 #endif
