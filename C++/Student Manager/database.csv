@@ -1,6 +1,6 @@
-ID,Ten,GioiTinh,Toan,Ly,Hoa,DiemTB,XepLoai
-1000,Trung,Nam,8.0,9.0,9.0,8.7
-1001,Trun,Nam,8.0,6.0,9.0,7.7
-1002,Trung,Nu,7.0,9.0,9.0,8.3
-1003,Trung1,Nam,8.0,9.0,9.0,8.7
-1004,Trung,Nam,4.0,3.0,4.0,3.7
+StudentScore,Name,Gender,Maths,Physics,Chemistry,Average,AcademicPerformance
+1000,Trung,Male,8.0,9.0,9.0,8.7,Distinction
+1001,Trun,Male,8.0,6.0,9.0,7.7,Credit
+1002,Trung,Female,7.0,9.0,9.0,8.3,Distinction
+1003,Trung1,Male,8.0,9.0,9.0,8.7,Distinction
+1004,Trung,Male,4.0,3.0,4.0,3.7,Poor

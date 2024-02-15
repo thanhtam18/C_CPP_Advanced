@@ -46,23 +46,23 @@ using namespace std;
     PRINT_ITEM(0, items[size-1]); 
 
 typedef enum{
-    NAME = 1,
-    ID
+    STUDENT_NAME = 1,
+    STUDENT_CODE
 }SearchType;
 
 typedef enum{
-    TEN = 1,
-    DIEM_TOAN,
-    DIEM_LY,
-    DIEM_HOA,
-    DIEM_TB
+    NAME = 1,
+    MATHS_SCORE,
+    PHYSICS_SCORE,
+    CHEMISTRY_SCORE,
+    AVERAGE_SCORE
 }SortType;
 
-void addStudent(list<SinhVien> &dataBase);
-void editStudent(list<SinhVien> &dataBase);
-void removeStudent(list<SinhVien> &dataBase);
-void searchStudent(list<SinhVien> &dataBase);
-void sortStudent(list<SinhVien> &dataBase);
-void displayListStudent(list<SinhVien> &dataBase);
-void saveListStudent(list<SinhVien> &dataBase);
+void addStudent(list<Student> &dataBase);
+void editStudent(list<Student> &dataBase);
+void removeStudent(list<Student> &dataBase);
+void searchStudent(list<Student> &dataBase);
+void sortStudent(list<Student> &dataBase);
+void displayListStudent(list<Student> &dataBase);
+void saveListStudent(list<Student> &dataBase);
 #endif

@@ -6,35 +6,35 @@ using namespace std;
 #include <iomanip>
 
 
-void test(list<SinhVien> &list){
-    SinhVien sv("Trung", 23, (GioiTinh)0, 8, 9, 9);
+void test(list<Student> &list){
+    Student sv("Trung", 23, (Gender)0, 8, 9, 9);
     list.push_back(sv);
-    SinhVien sv1("Trun", 19, (GioiTinh)0, 8, 6, 9);
+    Student sv1("Trun", 19, (Gender)0, 8, 6, 9);
     list.push_back(sv1);
-    SinhVien sv2("Trung", 18, (GioiTinh)1, 7, 9, 9);
+    Student sv2("Trung", 18, (Gender)1, 7, 9, 9);
     list.push_back(sv2);
-    SinhVien sv3("Trung1", 23, (GioiTinh)0, 8, 9, 9);
+    Student sv3("Trung1", 23, (Gender)0, 8, 9, 9);
     list.push_back(sv3);
-    SinhVien sv4("Trung", 25, (GioiTinh)0, 4, 3, 4);
+    Student sv4("Trung", 25, (Gender)0, 4, 3, 4);
     list.push_back(sv4);
 }
 
 int main(int argc, char const *argv[])
 {
     int key;
-    list<SinhVien> dataBaseStudent;
+    list<Student> dataBaseStudent;
     test(dataBaseStudent);
     while(1){
-        MENU("---- Quan ly sinh vien ----",
-                "Them sinh vien", 
-                "Sua sinh vien", 
-                "Xoa sinh vien", 
-                "Tim kiem sinh vien", 
-                "Sap xep sinh vien",
-                "Danh sach sinh vien",
-                "Luu vao database",
-                "Thoat");
-        cout<<("Vui long chon: ");
+        MENU("---- Student Manager ----",
+                "Add Student", 
+                "Edit Student", 
+                "Remove Student", 
+                "Search Student", 
+                "Sort Student",
+                "Display List Student",
+                "Save to DataBase",
+                "Exit");
+        cout<<("Your chose: ");
         cin>>key;
         HANDLE_OPTION(key,
                     CASE_OPTION(1,addStudent,dataBaseStudent)
