@@ -100,10 +100,10 @@ Giai đoạn này sẽ thực hiện:
 - Xóa bỏ tất cả chú thích, comments của chương trình
 - Chỉ thị tiền xử lý (bắt đầu bằng #) cũng được xử lý
 Ví dụ: chỉ thị #include cho phép ghép thêm mã chương trình của một tệp tiêu để vào mã nguồn cần dịch. Các hằng số được định nghĩa bằng #define sẽ được thay thế bằng giá trị cụ thể tại mỗi nơi sử dụng trong chương trình.
-### 2. Cộng đoạn dịch Ngôn Ngữ Bậc Cao sang Assembly
+### 2. Giai đoạn dịch Ngôn Ngữ Bậc Cao sang Assembly
 - Phân tích cú pháp (syntax) của mã nguồn NNBC
 - Chuyển chúng sang dạng mã Assembly là một ngôn ngữ bậc thấp (hợp ngữ) gần với tập lệnh của bộ vi xử lý.
-### 3. Công đoạn dịch Assembly
+### 3. Giai đoạn dịch Assembly
 - Dịch chương trình => Sang mã máy 0 và 1
 - Một tệp mã máy (.obj) sinh ra trong hệ thống sau đó.
 ### 4. Giai đoạn Linker
@@ -423,3 +423,14 @@ return 0;
 ```
 ## Struct and Union
 ### 1. Struct
+- Trong ngôn ngữ lập trình C, struct là một cấu trúc dữ liệu cho phép lập trình viên tự định nghĩa một kiểu dữ liệu mới bằng cách nhóm các biến có các kiểu dữ liệu khác nhau lại với nhau. struct cho phép tạo ra một thực thể dữ liệu lớn hơn và có tổ chức hơn từ các thành viên (members) của nó.
+- Dữ liệu của các thành viên của struct được lưu trữ ở những vùng nhớ khác nhau. Do đó kích thước của 1 struct tối thiểu bằng kích thước các thành viên cộng lại tại vì còn phụ thuộc vào bộ nhớ đệm (struct padding).
+![image](https://github.com/thanhtam18/C_CPP_Advanced/assets/140053842/04575700-69b8-4694-bedb-2b34f622742d)
+![image](https://github.com/thanhtam18/C_CPP_Advanced/assets/140053842/bb355a6d-05b7-4e12-bafc-44061c5730d6)
+### 2. Union
+- Trong ngôn ngữ lập trình C, union là một cấu trúc dữ liệu giúp lập trình viên kết hợp nhiều kiểu dữ liệu khác nhau vào cùng một vùng nhớ.
+- Mục đích chính của union là tiết kiệm bộ nhớ bằng cách chia sẻ cùng một vùng nhớ cho các thành viên của nó. Điều này có nghĩa là, trong một thời điểm, chỉ một thành viên của union có thể được sử dụng. Điều này được ứng dụng nhằm tiết kiệm bộ nhớ.
+- Dữ liệu các thành viên sẽ dùng chung 1 vùng nhớ. Kích thước của union được tính là kích thước lớn nhất của kiểu dữ liệu trong union. Việc thay đổi nội dung của 1 thành viên sẽ dẫn đến thay đổi nội dung của các thành viên khác.
+![image](https://github.com/thanhtam18/C_CPP_Advanced/assets/140053842/df55a724-bcb3-4398-8c98-7d38f3c3abd6)
+![image](https://github.com/thanhtam18/C_CPP_Advanced/assets/140053842/12909923-ed9a-4600-b18c-2a5c4cedfb21)
+![image](https://github.com/thanhtam18/C_CPP_Advanced/assets/140053842/29316ff5-6c8b-403c-90da-71ace0d9fe6f)
