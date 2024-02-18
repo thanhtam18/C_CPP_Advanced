@@ -1,17 +1,21 @@
 /*
-    File:   menu.h
+    File:   menu.hpp
     Author: Thanh Tam
-    Date:   19/1/2024
+    Date:   13/2/2024
     Description: This header file declare functions and macro for file menu.cpp
 */
 #ifndef MENU_H
 #define MENU_H
 
 #include <iostream>
-#include "student.hpp"
-#include <list>
-#include <stdarg.h>
+#include <manager.hpp>
+#include <employer.hpp>
+#include <food.hpp>
 #include <iomanip>
+#include <list>
+#include <vector>
+#include <table.hpp>
+#include <order.hpp>
 
 using namespace std;
 
@@ -45,24 +49,7 @@ using namespace std;
     } \
     PRINT_ITEM(0, items[size-1]); 
 
-typedef enum{
-    STUDENT_NAME = 1,
-    STUDENT_CODE
-}SearchType;
+void managerHandle(Manager &mn);
+void employerHandle(Manager &mn);
 
-typedef enum{
-    NAME = 1,
-    MATHS_SCORE,
-    PHYSICS_SCORE,
-    CHEMISTRY_SCORE,
-    AVERAGE_SCORE
-}SortType;
-
-void addStudent(list<Student> &dataBase);
-void editStudent(list<Student> &dataBase);
-void removeStudent(list<Student> &dataBase);
-void searchStudent(list<Student> &dataBase);
-void sortStudent(list<Student> &dataBase);
-void displayListStudent(list<Student> &dataBase);
-void saveListStudent(list<Student> &dataBase);
 #endif

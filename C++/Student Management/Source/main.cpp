@@ -25,7 +25,7 @@ int main(int argc, char const *argv[])
     list<Student> dataBaseStudent;
     test(dataBaseStudent);
     while(1){
-        MENU("---- Student Manager ----",
+        MENU("---- Student Management ----",
                 "Add Student", 
                 "Edit Student", 
                 "Remove Student", 
