@@ -76,7 +76,10 @@ void managerEditFood(Manager &mn){
                 cout<<setw(10)<<left<<item.getId()
                     <<setw(10)<<left<<item.getName()
                     <<setw(10)<<left<<item.getPrices()<<endl;
-                f = item;
+                cout<<"Enter new prices: ";
+                cin>>prices;
+                item.setPrices(prices);
+                mn.editFood(item);
                 isExist = true;
                 break;
             }
@@ -85,10 +88,6 @@ void managerEditFood(Manager &mn){
             cout<<"ID do not exist"<<endl;
             return;
         }
-        cout<<"Enter new prices: ";
-        cin>>prices;
-        f.setPrices(prices);
-        mn.editFood(f);
         cout<<"--- Successful ---\r\n";
         do{
             cout<<"1. Edit other food\r\n"
@@ -111,14 +110,13 @@ void managerRemoveFood(Manager &mn){
         cin>>id;
         cout<<"------------------------\r\n";
         list<Food> list = mn.getListFood();
-        Food f("",0);
         for(auto item : list){
             if(item.getId() == id){
                 cout<<setw(10)<<left<<"ID"<<setw(10)<<left<<"Name"<<setw(10)<<left<<"Prices"<<endl;
                 cout<<setw(10)<<left<<item.getId()
                     <<setw(10)<<left<<item.getName()
                     <<setw(10)<<left<<item.getPrices()<<endl;
-                f = item;
+                mn.removeFood(item);
                 isExist = true;
                 break;
             }
@@ -127,7 +125,7 @@ void managerRemoveFood(Manager &mn){
             cout<<"ID do not exist"<<endl;
             return;
         }
-        mn.removeFood(f);
+        
         cout<<"--- Successful ---\r\n";
         do{
             cout<<"1. Remove other food\r\n"
@@ -177,47 +175,166 @@ void managerHandle(Manager &mn){
     }
 }
 
-void employerPrintList(Employer &em){
-    int index = 1;
-    list<Food> list = em.getListFood();
-    cout<<setw(6)<<left<<"STT"<<setw(10)<<left<<"ID"<<setw(10)<<left<<"Name"<<setw(10)<<left<<"Prices"<<endl;
-    for(auto item : list){
-        cout<<setw(6)<<left<<index++
-            <<setw(10)<<left<<item.getId()
-            <<setw(10)<<left<<item.getName()
-            <<setw(10)<<left<<item.getPrices()<<endl;
-    }    
-}
-
-void orderFood(Employer &em){
-    int id,quantity;
-    bool isExist = false;
-    cout<<"--- Order Food ---"<<endl;
-    employerPrintList(em);
-    cout<<"Enter ID of Food want to order: ";
-    cin>>id;
-    cout<<"------------------------\r\n";
-    list<Food> list = em.getListFood();
-    Food f("",0);
-    for(auto item : list){
-        if(item.getId() == id){
-            cout<<setw(10)<<left<<"ID"<<setw(10)<<left<<"Name"<<setw(10)<<left<<"Prices"<<endl;
-            cout<<setw(10)<<left<<item.getId()
-                <<setw(10)<<left<<item.getName()
-                <<setw(10)<<left<<item.getPrices()<<endl;
-            f = item;
-            isExist = true;
-            break;
-        }
-    }
-    if(!isExist){
-        cout<<"ID do not exist"<<endl;
+void employerPrintListOrder(Employer &em, int tableNumber){
+    cout<<"--------------------------------------------\r\n";
+    list<Order> list = em.getTable(tableNumber).getListOrder();
+    if(list.size() == 0){
+        cout<<"Have not order yet"<<endl;
         return;
     }
-    cout<<"Enter quantity want to order";
-    cin>>quantity;
-    Order order(f, quantity);
+    int index = 1;
+    for(auto item : list){
+        if(index == 1){
+        cout<<setw(10)<<left<<"Index"<<setw(10)<<left<<"ID"<<setw(10)<<left<<"Name"<<setw(10)<<left<<"Prices"<<setw(10)<<left<<"Quantity"<<endl;
+        }
+        cout<<setw(10)<<left<<index++
+            <<setw(10)<<left<<item.getFood().getId()
+            <<setw(10)<<left<<item.getFood().getName()
+            <<setw(10)<<left<<item.getFood().getPrices()
+            <<setw(10)<<left<<item.getFoodQuantity()<<endl;
+    }
+    cout<<"--------------------------------------------\r\n";
+}
 
+void orderFood(Employer &em, int tableNumber){
+    int key;
+    int id,quantity;
+    do{
+        bool isExist = false;
+        cout<<"--- Order Food ---"<<endl;
+        int index = 1;
+        list<Food> list = em.getTable(tableNumber).getListFood();
+        cout<<setw(6)<<left<<"STT"<<setw(10)<<left<<"ID"<<setw(10)<<left<<"Name"<<setw(10)<<left<<"Prices"<<endl;
+        for(auto item : list){
+            cout<<setw(6)<<left<<index++
+                <<setw(10)<<left<<item.getId()
+                <<setw(10)<<left<<item.getName()
+                <<setw(10)<<left<<item.getPrices()<<endl;
+        }   
+        cout<<"Enter ID of Food want to order: ";
+        cin>>id;
+        cout<<"------------------------\r\n";
+        for(auto item : list){
+            if(item.getId() == id){
+                cout<<setw(10)<<left<<"ID"<<setw(10)<<left<<"Name"<<setw(10)<<left<<"Prices"<<endl;
+                cout<<setw(10)<<left<<item.getId()
+                    <<setw(10)<<left<<item.getName()
+                    <<setw(10)<<left<<item.getPrices()<<endl;
+                cout<<"Enter quantity want to order: ";
+                cin>>quantity;
+                Order order(item, quantity);
+                em.tableHandle(tableNumber, ORDER, order);
+                isExist = true;
+                employerPrintListOrder(em, tableNumber);
+                em.setStatus(tableNumber,true);
+                break;
+            }
+        }
+        if(!isExist){
+            cout<<"ID do not exist"<<endl;
+            return;
+        }
+        do{
+            cout<<"1. Order other food\r\n"
+                <<"0. Return\r\n"
+                <<"Your chose: ";
+            cin>>key;
+        }while(key != 0 && key != 1);  
+    }while(key == 1);
+}
+
+void cancelFood(Employer &em, int tableNumber){
+    int key,id;
+    int quantity;
+    do{
+        bool isExist = false;
+        cout<<"--- Cancel Food ---"<<endl;
+        employerPrintListOrder(em, tableNumber);
+        cout<<"Enter ID of Food want to cancel: ";
+        cin>>id;
+        cout<<"------------------------\r\n";
+        list<Order> list = em.getTable(tableNumber).getListOrder();
+        for(auto item : list){
+            if(item.getFood().getId() == id){
+                cout<<setw(10)<<left<<"ID"<<setw(10)<<left<<"Name"<<setw(10)<<left<<"Prices"<<setw(10)<<left<<"Quantity"<<endl;
+                cout<<setw(10)<<left<<item.getFood().getId()
+                    <<setw(10)<<left<<item.getFood().getName()
+                    <<setw(10)<<left<<item.getFood().getPrices()
+                    <<setw(10)<<left<<item.getFoodQuantity()<<endl;
+                do{
+                cout<<"Enter quantity want to cancel: ";
+                cin>>quantity;
+                }while(quantity > item.getFood().getPrices());
+                isExist = true;
+                Order order(item.getFood(), quantity);
+                em.tableHandle(tableNumber, CANCEL, order);
+                break;
+            }
+        }
+        if(!isExist){
+            cout<<"ID do not exist"<<endl;
+            return;
+        }
+        do{
+            cout<<"1. Cancel other food\r\n"
+                <<"0. Return\r\n"
+                <<"Your chose: ";
+            cin>>key;
+        }while(key != 0 && key != 1);  
+    }while(key == 1);
+}
+
+void changeFood(Employer &em, int tableNumber){
+    int key;
+    int id, newId, quantity;
+    do{
+        bool isSuccess = false;
+        cout<<"--- Change Food ---"<<endl;
+        employerPrintListOrder(em, tableNumber);
+        cout<<"Enter ID of Food want to change: ";
+        cin>>id;
+        cout<<"------------------------\r\n";
+        int index = 1;
+        list<Order> listOrder = em.getTable(tableNumber).getListOrder();
+        list<Food> list = em.getTable(tableNumber).getListFood();
+        cout<<setw(6)<<left<<"STT"<<setw(10)<<left<<"ID"<<setw(10)<<left<<"Name"<<setw(10)<<left<<"Prices"<<endl;
+        for(auto item : list){
+            cout<<setw(6)<<left<<index++
+                <<setw(10)<<left<<item.getId()
+                <<setw(10)<<left<<item.getName()
+                <<setw(10)<<left<<item.getPrices()<<endl;
+        }  
+        cout<<"Enter ID of new Food: ";
+        cin>>newId;
+        cout<<"Enter quantity of new Food: ";
+        cin>>quantity;
+        cout<<"------------------------\r\n";
+        for(auto item : listOrder){
+            if(item.getFood().getId() != id)
+                continue;
+            for(auto item2 : list){
+                if(item2.getId() != newId)
+                    continue;
+                if(item2.getId() == newId){
+                    Order newOrder{item2, quantity};
+                    em.tableHandle(tableNumber, CHANGE, item, newOrder);
+                    isSuccess = true;
+                    break;
+                }
+            }
+            break;
+        }
+        if(!isSuccess){
+            cout<<"Change failed"<<endl;
+            return;
+        }
+        do{
+            cout<<"1. Change other food\r\n"
+                <<"0. Return\r\n"
+                <<"Your chose: ";
+            cin>>key;
+        }while(key != 0 && key != 1);  
+    }while(key == 1);
 }
 
 void employerHandle(Manager &mn){
@@ -243,27 +360,36 @@ void employerHandle(Manager &mn){
         if(tableNumber == 0)
             return;
         }while(tableNumber < 0 || tableNumber > mn.getTableQuantity());
-        SUB_MENU("Order Food", "Cancel Food", "Change Food", "Remove Food", "List Order Food", "Payment", "Return");
-        cout<<"Your chose: ";
-        cin>>key;
-        switch (key){
-            case 1:
-                orderFood(em);
-                break;
-            case 2:
+        do{
+            SUB_MENU("Order Food", "Cancel Food", "Change Food", "List Order Food", "Payment", "Return");
+            cout<<"Your chose: ";
+            cin>>key;
+            switch (key){
+                case 1:
+                    orderFood(em, tableNumber);
+                    break;
+                case 2:
+                    cancelFood(em, tableNumber);
+                    break;
+                case 3:
+                    changeFood(em, tableNumber);
+                    break;
+                case 4:
+                    int chose;
+                    cout<<"--- List Order Food ---"<<endl;
+                    employerPrintListOrder(em, tableNumber);
+                    do{
+                        cout<<"0. Return\r\n"
+                            <<"Your chose: ";
+                        cin>>chose;
+                    }while(chose != 0);  
+                    break;
+                case 5:
 
-                break;
-            case 3:
-
-                break;
-            case 4:
-
-                break;
-            case 5:
-
-                break;
-            case 0:
-                return;
-        }
-    }    
+                    break;
+                case 0:
+                    break;
+            }
+        }while(key != 0);
+    }
 }

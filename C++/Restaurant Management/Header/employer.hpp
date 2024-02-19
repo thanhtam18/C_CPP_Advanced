@@ -4,8 +4,18 @@
 
 #include <table.hpp>
 #include <vector>
+#include <order.hpp>
+#include <stdarg.h>
 
 using namespace std;
+
+typedef enum{
+    ORDER,
+    CANCEL,
+    CHANGE,
+    PAYMENT,
+    LIST
+}Type;
 
 class Employer{
     private:
@@ -18,7 +28,9 @@ class Employer{
 
         vector<Table> getListTable();
         list<Food>  getListFood();
-        Table getTable(int id);
+        Table getTable(int tableNumber);
+        void tableHandle(int tableNumber, Type type, ...);
+        void setStatus(int tableNumber, bool status);
 };
 
 #endif
