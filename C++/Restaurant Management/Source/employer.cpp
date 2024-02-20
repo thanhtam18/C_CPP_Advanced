@@ -48,20 +48,19 @@ void Employer :: tableHandle(int tableNumber, Type type, ...){
             continue;
         }
         switch(type){
-            case ORDER:
-                
+            case ORDER: 
                 listTable[i].orderFood(va_arg(arg, Order));
                 break;
             case CANCEL:
                 listTable[i].deleteFood(va_arg(arg, Order));
                 break;
+            case PAYMENT:
+                listTable[i].makeAPayment();
+                break;
             case CHANGE:
                 Order oldOrder = va_arg(arg,Order);
                 Order newOrder = va_arg(arg,Order);
                 listTable[i].changeFood(oldOrder, newOrder);
-                break;
-            case PAYMENT:
-
                 break;
         }
     }

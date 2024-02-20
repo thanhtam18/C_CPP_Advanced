@@ -15,9 +15,11 @@ void managerPrintList(Manager &mn){
 int managerSetQuantity(Manager &mn){
     int key;
     int quantity;
-    cout<<"--- Set quantity table ---\r\n"
-        <<"Enter quantity table: ";
-    cin>>quantity;  
+    cout<<"--- Set quantity table ---\r\n";
+    do{
+        cout<<"Enter quantity table: ";
+        cin>>quantity;  
+    }while(quantity <= 0);
     mn.setTableQuantity(quantity);
     cout<<"--- Successful ---\r\n";
     do{
@@ -337,32 +339,42 @@ void changeFood(Employer &em, int tableNumber){
     }while(key == 1);
 }
 
-void payment(Employer &em, int tableNumber){
+bool payment(Employer &em, int tableNumber){
     int key;
     if(em.getTable(tableNumber).getBill() == 0){
         cout<<"---------------------"<<endl;
         cout<<"Have not order yet"<<endl;
         cout<<"---------------------"<<endl;
-        return;
+        return false;
     }
     cout<<"--- Payment ---"<<endl;
     cout<<"List Food ordered:"<<endl;
     employerPrintListOrder(em, tableNumber);
-    cout<<"\r\n--------------------------------------------\r\n";
     cout<<"Sum: "<<em.getTable(tableNumber).getBill()<<endl;
     cout<<"VAT: 10%\r\n"
-        <<"Total: "<< (em.getTable(tableNumber).getBill() + (em.getTable(tableNumber).getBill())*10/100)<<endl;;
+        <<"Total: "<< (em.getTable(tableNumber).getBill() + (em.getTable(tableNumber).getBill())*10/100)<<endl;
+    cout<<"--------------------------------------------\r\n";
     do{
         cout<<"1. Make a Payment\r\n"
             <<"0. Return\r\n"
             <<"Your chose: ";
         cin>>key;
-        if(key == 1)
-            em.tableHandle(tableNumber, PAYMENT)
+        if(key == 1){
+            em.tableHandle(tableNumber, PAYMENT);
+            cout<<"----- Successful -----\r\n";
+            return true;
+        }
     }while(key != 0 && key != 1);  
+    return false;
 }
 
 void employerHandle(Manager &mn){
+    if(mn.getTableQuantity() == 0){
+        cout<<"---------------------"<<endl;
+        cout<<"Please set quantity table"<<endl;
+        cout<<"---------------------"<<endl;
+        return;
+    }
     int key;
     int tableNumber;
     static Employer em(mn.getListFood(), mn.getTableQuantity());
@@ -410,7 +422,7 @@ void employerHandle(Manager &mn){
                     }while(chose != 0);  
                     break;
                 case 5:
-                    payment(em, tableNumber);
+                    if(payment(em, tableNumber)) key = 0;
                     break;
                 case 0:
                     break;

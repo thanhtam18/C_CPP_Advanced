@@ -65,7 +65,7 @@ void Table :: makeAPayment(){
     tableStatus = false;
     bill = 0;
     for(list<Order>::iterator i = listOrder.begin(); i != listOrder.end(); i++){
-        listOrder[i]
+        listOrder.erase(i);
     }
 }
 
