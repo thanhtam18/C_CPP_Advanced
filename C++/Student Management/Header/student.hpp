@@ -1,5 +1,5 @@
 /*
-    File:   student.h
+    File:   student.hpp
     Author: Thanh Tam
     Date:   19/1/2024
     Description: This header file declare functions for file student.cpp
