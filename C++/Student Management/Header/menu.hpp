@@ -1,5 +1,5 @@
 /*
-    File:   menu.h
+    File:   menu.hpp
     Author: Thanh Tam
     Date:   19/1/2024
     Description: This header file declare functions and macro for file menu.cpp
