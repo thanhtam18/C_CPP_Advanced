@@ -46,11 +46,10 @@ void Table :: setTableStatus(bool status){
 
 void Table :: changeFood(Order oldOrder, Order newOrder){
     for(list<Order>::iterator i = listOrder.begin(); i != listOrder.end(); i++){
-        if(i->getFood().getId() == oldOrder.getFood().getId()){
-            cout<<"delete\r\n";
+        if(i->getFood().getId() != oldOrder.getFood().getId()){
+            continue;
         }
-        
-        //listOrder.erase(i);
+        *i = newOrder;
         break;
     }
 }
