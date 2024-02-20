@@ -43,7 +43,9 @@ void Employer :: tableHandle(int tableNumber, Type type, ...){
                 listTable[i].deleteFood(va_arg(arg, Order));
                 break;
             case CHANGE:
-                listTable[i].changeFood(va_arg(arg, Order), va_arg(arg + 1, Order));
+                Order oldOrder = va_arg(arg, Order);
+                Order newOrder = va_arg(arg, Order);
+                listTable[i].changeFood(oldOrder, newOrder);
                 break;
         }
     }
