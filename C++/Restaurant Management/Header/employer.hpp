@@ -19,7 +19,6 @@ typedef enum{
     CANCEL,
     CHANGE,
     PAYMENT,
-    LIST
 }Type;
 
 class Employer{

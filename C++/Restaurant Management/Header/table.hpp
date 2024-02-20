@@ -33,6 +33,7 @@ class Table{
         void changeFood(Order oldOrder, Order newOrder);
         list<Order> getListOrder();
         list<Food> getListFood();
+        int getBill();
         void makeAPayment();
 
 

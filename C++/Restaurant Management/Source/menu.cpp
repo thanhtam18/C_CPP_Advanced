@@ -337,6 +337,31 @@ void changeFood(Employer &em, int tableNumber){
     }while(key == 1);
 }
 
+void payment(Employer &em, int tableNumber){
+    int key;
+    if(em.getTable(tableNumber).getBill() == 0){
+        cout<<"---------------------"<<endl;
+        cout<<"Have not order yet"<<endl;
+        cout<<"---------------------"<<endl;
+        return;
+    }
+    cout<<"--- Payment ---"<<endl;
+    cout<<"List Food ordered:"<<endl;
+    employerPrintListOrder(em, tableNumber);
+    cout<<"\r\n--------------------------------------------\r\n";
+    cout<<"Sum: "<<em.getTable(tableNumber).getBill()<<endl;
+    cout<<"VAT: 10%\r\n"
+        <<"Total: "<< (em.getTable(tableNumber).getBill() + (em.getTable(tableNumber).getBill())*10/100)<<endl;;
+    do{
+        cout<<"1. Make a Payment\r\n"
+            <<"0. Return\r\n"
+            <<"Your chose: ";
+        cin>>key;
+        if(key == 1)
+            em.tableHandle(tableNumber, PAYMENT)
+    }while(key != 0 && key != 1);  
+}
+
 void employerHandle(Manager &mn){
     int key;
     int tableNumber;
@@ -385,7 +410,7 @@ void employerHandle(Manager &mn){
                     }while(chose != 0);  
                     break;
                 case 5:
-
+                    payment(em, tableNumber);
                     break;
                 case 0:
                     break;

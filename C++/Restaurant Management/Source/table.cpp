@@ -54,3 +54,18 @@ void Table :: changeFood(Order oldOrder, Order newOrder){
     }
 }
 
+int Table :: getBill(){
+    for(auto item : listOrder){
+        bill += item.getFoodQuantity() * item.getFood().getPrices();
+    }
+    return bill;
+}
+
+void Table :: makeAPayment(){
+    tableStatus = false;
+    bill = 0;
+    for(list<Order>::iterator i = listOrder.begin(); i != listOrder.end(); i++){
+        listOrder[i]
+    }
+}
+

@@ -60,6 +60,9 @@ void Employer :: tableHandle(int tableNumber, Type type, ...){
                 Order newOrder = va_arg(arg,Order);
                 listTable[i].changeFood(oldOrder, newOrder);
                 break;
+            case PAYMENT:
+
+                break;
         }
     }
     va_end(arg); 
