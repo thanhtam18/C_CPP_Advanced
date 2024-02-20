@@ -1,5 +1,13 @@
 #include <employer.hpp>
 
+/*
+Description: This constructor initializes a Employer object with the provided parameters..
+Input: 
+    dataBase: The list representing the database of Food.
+    quantity: The quantity of table
+    passWord: The password of employer
+Ouput: None
+*/
 Employer :: Employer(list<Food> dataBase, int quantity, string passWord){
     this->listFood = dataBase;
     this->quantity = quantity;
@@ -10,6 +18,11 @@ Employer :: Employer(list<Food> dataBase, int quantity, string passWord){
     }
 }
 
+/*
+Description: This function returns the list of table.
+Input: None
+Output: The list table.
+*/
 vector<Table> Employer :: getListTable(){
     return listTable;
 }
@@ -43,8 +56,8 @@ void Employer :: tableHandle(int tableNumber, Type type, ...){
                 listTable[i].deleteFood(va_arg(arg, Order));
                 break;
             case CHANGE:
-                Order oldOrder = va_arg(arg, Order);
-                Order newOrder = va_arg(arg, Order);
+                Order oldOrder = va_arg(arg,Order);
+                Order newOrder = va_arg(arg,Order);
                 listTable[i].changeFood(oldOrder, newOrder);
                 break;
         }

@@ -1,3 +1,9 @@
+/*
+    File:   table.hpp
+    Author: Thanh Tam
+    Date:   13/2/2024
+    Description: This header file declare functions and macro for file table.cpp
+*/
 #ifndef _TABLE_H
 #define _TABLE_H
 
