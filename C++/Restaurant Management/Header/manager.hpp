@@ -27,7 +27,6 @@ class Manager{
         void addFood(Food food);
         void editFood(Food food);
         void removeFood(Food food);
-        void displayFood();
         list<Food> getListFood();
         int getTableQuantity();
 };

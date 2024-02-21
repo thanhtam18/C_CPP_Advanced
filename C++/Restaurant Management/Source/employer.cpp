@@ -19,18 +19,29 @@ Employer :: Employer(list<Food> dataBase, int quantity, string passWord){
 }
 
 /*
-Description: This function returns the list of table.
+Description: This function to retrieve the list of tables managed by the Employer.
 Input: None
-Output: The list table.
+Output: Vector of Table objects representing the tables managed by the Employer.
 */
 vector<Table> Employer :: getListTable(){
     return listTable;
 }
 
+/*
+Description: This function to retrieve the list of Food items in the Employer's database.
+Input: None
+Output: List of Food objects representing the database of the Employer.
+*/
 list<Food> Employer :: getListFood(){
     return listFood;
 }
 
+/*
+Description: This function to retrieve a specific Table by its table number.
+Input:
+    tableNumber: The unique identifier of the table to retrieve.
+Output: Table object representing the specified table; an empty Table if not found.
+*/
 Table Employer :: getTable(int tableNumber){
     for(auto item : listTable){
         if(item.getTableId() == tableNumber){
@@ -40,6 +51,14 @@ Table Employer :: getTable(int tableNumber){
     return Table();
 }
 
+/*
+Description: Function to perform various operations on a specified table.
+Input:
+    tableNumber: The unique identifier of the table to handle.
+    type: Enumerated type (Type) indicating the operation to be performed (ORDER, CANCEL, PAYMENT, CHANGE).
+    ...: Variable number of arguments based on the specified operation type.
+Output: None
+*/
 void Employer :: tableHandle(int tableNumber, Type type, ...){
     va_list arg;
     va_start(arg,type); 
@@ -67,6 +86,13 @@ void Employer :: tableHandle(int tableNumber, Type type, ...){
     va_end(arg); 
 }
 
+/*
+Description: Function to set the status (occupied/unoccupied) of a specified table.
+Input:
+    tableNumber: The unique identifier of the table to update.
+    status: Boolean indicating the new status of the table (true for occupied, false for unoccupied).
+Output: None
+*/
 void Employer :: setStatus(int tableNumber, bool status){
     for(vector<Table>::size_type i = 0; i < listTable.size(); i++){
         if(listTable[i].getTableId() == tableNumber){

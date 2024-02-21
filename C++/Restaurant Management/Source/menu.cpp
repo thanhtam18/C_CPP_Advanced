@@ -1,5 +1,10 @@
 #include <menu.hpp>
-
+/*
+Description: Function to print the list of food items managed by the Manager.
+Input:
+    mn: Reference to a Manager object representing the manager with the food database to be printed.
+Output: None
+*/
 void managerPrintList(Manager &mn){
     int index = 1;
     list<Food> list = mn.getListFood();
@@ -11,7 +16,12 @@ void managerPrintList(Manager &mn){
             <<setw(10)<<left<<item.getPrices()<<endl;
     }
 }
-
+/*
+Description: Function to set the quantity of tables managed by the Manager.
+Input:
+    mn: Reference to a Manager object representing the manager whose table quantity is to be set.
+Output: The function returns the user's choice.
+*/
 int managerSetQuantity(Manager &mn){
     int key;
     int quantity;
@@ -30,7 +40,12 @@ int managerSetQuantity(Manager &mn){
     }while(key != 0 && key != 1);  
     return key;
 }
-
+/*
+Description: Function to interactively add new food items to the database managed by the Manager.
+Input:
+    mn: Reference to a Manager object representing the manager with the food database to be updated.
+Output: None
+*/
 void managerAddFood(Manager &mn){
     int key;
     do{
@@ -58,7 +73,12 @@ void managerAddFood(Manager &mn){
         }while(key != 0 && key != 1);     
     }while(key == 1);
 }
-
+/*
+Description: Function to interactively edit existing food items in the database managed by the Manager.
+Input:
+    mn: Reference to a Manager object representing the manager with the food database to be updated.
+Output: None
+*/
 void managerEditFood(Manager &mn){
     int key;
     int prices, id;
@@ -99,7 +119,12 @@ void managerEditFood(Manager &mn){
         }while(key != 0 && key != 1);     
     }while(key == 1); 
 }
-
+/*
+Description: Function to interactively remove existing food items from the database managed by the Manager.
+Input:
+    mn: Reference to a Manager object representing the manager with the food database to be updated.
+Output: None
+*/
 void managerRemoveFood(Manager &mn){
     int key;
     int id;
@@ -137,7 +162,12 @@ void managerRemoveFood(Manager &mn){
         }while(key != 0 && key != 1);     
     }while(key == 1);
 }
-
+/*
+Description: Function to handle managerial operations and interactions.
+Input:
+    mn: Reference to a Manager object representing the manager with the food database to be managed.
+Output: None
+*/
 void managerHandle(Manager &mn){
     int key;
     while(1){
@@ -176,7 +206,13 @@ void managerHandle(Manager &mn){
         }
     }
 }
-
+/*
+Description: Function to print the list of orders for a specific table managed by the Employer.
+Input:
+    em: Reference to an Employer object representing the employer managing the tables and orders.
+    tableNumber: Integer representing the table number for which the orders are to be printed.
+Output: None
+*/
 void employerPrintListOrder(Employer &em, int tableNumber){
     cout<<"--------------------------------------------\r\n";
     list<Order> list = em.getTable(tableNumber).getListOrder();
@@ -197,7 +233,13 @@ void employerPrintListOrder(Employer &em, int tableNumber){
     }
     cout<<"--------------------------------------------\r\n";
 }
-
+/*
+Description: Function to interactively take food orders for a specific table managed by the Employer.
+Input:
+    em: Reference to an Employer object representing the employer managing the tables and orders.
+    tableNumber: Integer representing the table number for which the orders are to be taken.
+Output: None
+*/
 void orderFood(Employer &em, int tableNumber){
     int key;
     int id,quantity;
@@ -244,7 +286,13 @@ void orderFood(Employer &em, int tableNumber){
         }while(key != 0 && key != 1);  
     }while(key == 1);
 }
-
+/*
+Description: Function to interactively cancel food orders for a specific table managed by the Employer.
+Input:
+    em: Reference to an Employer object representing the employer managing the tables and orders.
+    tableNumber: Integer representing the table number for which the orders are to be canceled.
+Output: None
+*/
 void cancelFood(Employer &em, int tableNumber){
     int key,id;
     int quantity;
@@ -285,7 +333,13 @@ void cancelFood(Employer &em, int tableNumber){
         }while(key != 0 && key != 1);  
     }while(key == 1);
 }
-
+/*
+Description: Function to interactively change food orders for a specific table managed by the Employer.
+Input:
+    em: Reference to an Employer object representing the employer managing the tables and orders.
+    tableNumber: Integer representing the table number for which the orders are to be changed.
+Output: None
+*/
 void changeFood(Employer &em, int tableNumber){
     int key;
     int id, newId, quantity;
@@ -339,6 +393,15 @@ void changeFood(Employer &em, int tableNumber){
     }while(key == 1);
 }
 
+/*
+Description: Function to interactively handle the payment process for a specific table managed by the Employer.
+Input:
+    em: Reference to an Employer object representing the employer managing the tables and orders.
+    tableNumber: Integer representing the table number for which the payment is to be processed.
+
+Output:
+    Returns a boolean indicating whether the payment was successfully processed.
+*/
 bool payment(Employer &em, int tableNumber){
     int key;
     if(em.getTable(tableNumber).getBill() == 0){
@@ -367,7 +430,12 @@ bool payment(Employer &em, int tableNumber){
     }while(key != 0 && key != 1);  
     return false;
 }
-
+/*
+Description: Function to handle the interactive management tasks for an employer.
+Input:
+    mn: Reference to a Manager object representing the manager with information about food and table quantity.
+Output: None
+*/
 void employerHandle(Manager &mn){
     if(mn.getTableQuantity() == 0){
         cout<<"---------------------"<<endl;
