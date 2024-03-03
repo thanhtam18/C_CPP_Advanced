@@ -1,6 +1,9 @@
-# C Advanced
-
-## Macro
+<details>
+<summary><h1>C Advanced</h1></summary>
+	
+<details>
+<summary><h2>Macro</h2></summary>
+	
 ### 1. #ifndef và #endif
 - Là các chỉ thị tiền xử lý thường được sử dụng trong các file header để tránh định nghĩa file header (#include) nhiều lần trong cùng một file chính gây xung đột.
 ```C
@@ -86,7 +89,10 @@ int main() {
     return 0;
 }
 ```
-## Compile
+</details>
+<details>
+<summary><h2>Compile</h2></summary>
+	
 Quy trình dịch là quá trình chuyển đổi từ ngôn ngữ bậc cao (NNBC) (C/C++, Pascal, Java, C#…) sang ngôn ngữ đích (ngôn ngữ máy) để máy tính có thể hiểu và thực thi. Ngôn ngữ lập trình C là một ngôn ngữ dạng biên dịch. Chương trình được viết bằng C muốn chạy được trên máy tính phải trải qua một quá trình biên dịch để chuyển đổi từ dạng mã nguồn sang chương trình dạng mã thực thi. Quá trình được chia ra làm 4 giai đoạn chính:
 
 - Giai đoàn tiền xử lý (Pre-processor)
@@ -122,7 +128,10 @@ gcc -c main.s -o main.o
 Linker
 gcc main.o -o main
 ```
-## Memory Layout
+</details>
+<details>
+<summary><h2>Memory Layout</h2></summary>
+
 ![image](https://github.com/thanhtam18/C_CPP_Advanced/assets/140053842/1ebd4633-efe6-41ac-ae4d-da53fb5c5af6)
 ### 1. Text
 - Quyền truy cập chỉ Read và nó chưa lệnh để thực thi nên tránh sửa đổi instruction.
@@ -152,8 +161,11 @@ gcc main.o -o main
 - Heap: kích thước của bộ nhớ Heap là không cố định, có thể tăng giảm do đó đáp ứng được nhu cầu lưu trữ dữ liệu của chương trình.
 #### Đặc điểm vùng nhớ
 - Stack: vùng nhớ Stack được quản lý bởi hệ điều hành, dữ liệu được lưu trong Stack sẽ tự động hủy khi hàm thực hiện xong công việc của mình.
-- Heap: Vùng nhớ Heap được quản lý bởi lập trình viên (trong C hoặc C++), dữ liệu trong Heap sẽ không bị hủy khi hàm thực hiện xong, điều đó có nghĩa bạn phải tự tay hủy vùng nhớ bằng câu lệnh free (trong C), và delete hoặc delete [] (trong C++), nếu không sẽ xảy ra hiện tượng rò rỉ bộ nhớ. 
-## Library
+- Heap: Vùng nhớ Heap được quản lý bởi lập trình viên (trong C hoặc C++), dữ liệu trong Heap sẽ không bị hủy khi hàm thực hiện xong, điều đó có nghĩa bạn phải tự tay hủy vùng nhớ bằng câu lệnh free (trong C), và delete hoặc delete [] (trong C++), nếu không sẽ xảy ra hiện tượng rò rỉ bộ nhớ.
+</details>
+<details>
+<summary><h2>Library</h2></summary>
+	
 ### 1. stdarg Library
 Thư viện stdarg.h trong C định nghĩa một kiểu biến va_list và 3 macro mà có thể được sử dụng để lấy các tham số trong một hàm khi số lượng tham số có thể biến đổi.
 - va_start(va_list ap, last_arg): Macro này khởi tạo biến ap để được sử dụng với hai macro là va_arg và va_end. Tham số last_arg, là tham số cố định được biết cuối cùng, đang được truyền tới hàm
@@ -237,7 +249,10 @@ int main() {
     return 0;
 }
 ```
-## Bit Mask
+</details>
+<details>
+<summary><h2>Bit Mask</h2></summary>
+
 Bit mask là một chuỗi các bit được sử dụng để thực hiện các phép toán bitwise (AND, OR, XOR, NOT) để kiểm soát và thay đổi giá trị của các bit cụ thể trong một số nguyên.
 - Ví dụ đặt bit thứ k lên 1: `x |= (1 << k);`
 - Ví dụ đặt bit thứ k về 0: `x &= ~(1 << k);`
@@ -291,7 +306,10 @@ int main() {
     return 0;
 }
 ```
-## Pointer
+</details>
+<details>
+<summary><h2>Pointer</h2></summary>
+
 Trong ngôn ngữ C/C++, con trỏ (pointer) là những biến lưu trữ địa chỉ bộ nhớ của những biến khác.
 ![image](https://github.com/thanhtam18/C_CPP_Advanced/assets/140053842/a60a0442-1a11-4051-b3fa-7b7b53109ca9)
 ### 1. Function Pointer
@@ -375,7 +393,10 @@ int main(int argc, char const *argv[])	{
 Kích thước của mọi con trỏ là như nhau. Kích thước này phụ thuộc vào môi trường hệ thống máy tính:
 - Môi trường Windows 32 bit: 4 bytes
 - Môi trường Windows 64 bit: 8 bytes
-## Data Type
+</details>
+<details>
+<summary><h2>Data Type</h2></summary>
+
 ### 1. Extern
 Khi khai báo một biến hoặc hàm kèm với từ khóa extern thì có nghĩa là chúng đã được khai báo ở một file khác và muốn sử dụng chúng ở file hiện tại.
 - Syntax: `extern <kiểu dữ liệu> <tên biến hoặc hàm>`
@@ -421,7 +442,10 @@ int main() {
 return 0;
 }
 ```
-## Struct and Union
+</details>
+<details>
+<summary><h2>Struct and Union</h2></summary>
+
 ### 1. Struct
 - Trong ngôn ngữ lập trình C, struct là một cấu trúc dữ liệu cho phép lập trình viên tự định nghĩa một kiểu dữ liệu mới bằng cách nhóm các biến có các kiểu dữ liệu khác nhau lại với nhau. struct cho phép tạo ra một thực thể dữ liệu lớn hơn và có tổ chức hơn từ các thành viên (members) của nó.
 - Dữ liệu của các thành viên của struct được lưu trữ ở những vùng nhớ khác nhau. Do đó kích thước của 1 struct tối thiểu bằng kích thước các thành viên cộng lại tại vì còn phụ thuộc vào bộ nhớ đệm (struct padding).
@@ -434,3 +458,9 @@ return 0;
 ![image](https://github.com/thanhtam18/C_CPP_Advanced/assets/140053842/df55a724-bcb3-4398-8c98-7d38f3c3abd6)
 ![image](https://github.com/thanhtam18/C_CPP_Advanced/assets/140053842/12909923-ed9a-4600-b18c-2a5c4cedfb21)
 ![image](https://github.com/thanhtam18/C_CPP_Advanced/assets/140053842/29316ff5-6c8b-403c-90da-71ace0d9fe6f)
+</details>
+</details>
+<details>
+<summary><h1>C++ Advanced</h1></summary>
+	
+<details>
