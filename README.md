@@ -464,3 +464,254 @@ return 0;
 <summary><h1>C++ Advanced</h1></summary>
 	
 <details>
+<summary><h2>Class</h2></summary>
+
+### Declaring Object
+Trong C++, từ khóa "class" được sử dụng để định nghĩa một lớp, là một cấu trúc dữ liệu tự định nghĩa có thể chứa dữ liệu và các hàm thành viên liên quan. 
+```C++
+class ClassName {
+private:
+    // Các thành phần riêng tư (private) chỉ có thể truy cập bên trong lớp
+    // Dữ liệu thành viên, hàm thành viên, ...
+protected:
+    // Các thành phần bảo vệ (protected) tương tự như private, nhưng có thể truy cập từ lớp kế thừa
+public:
+    // Các thành phần công khai (public) được truy cập từ bên ngoài lớp
+    // Dữ liệu thành viên, hàm thành viên, ...
+    // Hàm thành viên và các phương thức khác có thể được định nghĩa tại đây
+    // ...
+};
+```
+### Constructor
+Constructor trong C++ là một method sẽ được tự động gọi khi khởi tạo object. Constructor sẽ có tên trùng với tên của class.
+```C++
+class HinhChuNhat {
+public:
+    double chieuDai;
+    double chieuRong;
+
+    HinhChuNhat(){
+        chieuDai = 10;
+        chieuRong = 9;
+    }
+
+    double tinhDienTich() {
+        return chieuDai * chieuRong;
+    }
+};
+```
+### Destructor
+Destructor trong C++ là một method sẽ được tự động gọi khi object được giải phóng. Destructor sẽ có tên trùng với tên của class và thêm ký tự ~ ở phía trước tên.
+```C++
+class HinhChuNhat {
+public:
+    double chieuDai;
+    double chieuRong;
+    HinhChuNhat(){
+        chieuDai = 10;
+        chieuRong = 9;
+    }
+    ~HinhChuNhat(){
+        std::cout << "Destructor " << '\n';
+    }
+
+    double tinhDienTich() {
+        return chieuDai * chieuRong;
+    }
+};
+```
+### Static keyword
+Khi một property trong class được khai báo với từ khóa static, thì tất cả các object sẽ dùng chung địa chỉ của property này.
+Khi một method trong class được khai báo với từ khóa static:
+- Method này độc lập với bất kỳ đối tượng nào của lớp.
+- Method này có thể được gọi ngay cả khi không có đối tượng nào của class tồn tại.
+- Method này có thể được truy cập bằng cách sử dụng tên class thông qua toán tử :: .
+- Method này có thể truy cập các static property và các static method bên trong hoặc bên ngoài class.
+- Method có phạm vi bên trong class và không thể truy cập con trỏ đối tượng hiện tại.
+```C++
+#include <iostream>
+
+using namespace std;
+
+class HinhChuNhat
+{
+public:
+    double chieuDai;
+    double chieuRong;
+    static int count;
+
+    HinhChuNhat(int dai = 5, int rong = 4);
+    ~HinhChuNhat();
+
+    double tinhDienTich();
+    static void display();
+};
+
+HinhChuNhat::HinhChuNhat(int dai, int rong)
+{
+    chieuDai = dai;
+    chieuRong = rong;
+    count++;
+}
+
+HinhChuNhat::~HinhChuNhat()
+{
+    cout << "Destructor" << endl;
+}
+
+void HinhChuNhat::display()
+{
+    cout << "Number of object: " << count << endl;
+}
+
+int HinhChuNhat::count = 0;
+
+int main()
+{ 
+    HinhChuNhat::display();
+
+    return 0;
+}
+```
+</details>
+<details>
+<summary><h2>Standard template library</h2></summary>
+	
+Standard Template Library ( STL) là một thư viện trong ngôn ngữ lập trình C++ cung cấp một tập hợp các template classes và functions để thực hiện nhiều loại cấu trúc dữ liệu và các thuật toán phổ biến. STL đã trở thành một phần quan trọng của ngôn ngữ C++ và làm cho việc lập trình trở nên mạnh mẽ, linh hoạt và hiệu quả.
+### Container
+#### Vector
+Vector là một trong những container quan trọng nhất trong STL của C++. Nó cung cấp một mảng động với khả năng thay đổi kích thước một cách linh hoạt.
+
+Một số đặc điểm chính của vector:
+- vector là một mảng động, tức là có khả năng thay đổi kích thước một cách linh hoạt.
+- Truy cập ngẫu nhiên: Việc truy cập các phần tử của vector có thể được thực hiện bằng cách sử dụng chỉ số.
+- Hiệu suất chèn và xóa: Chèn và xóa phần tử ở cuối vector có hiệu suất tốt. Tuy nhiên, chèn và xóa ở vị trí bất kỳ có thể đòi hỏi di chuyển một số phần tử.
+- 
+Một số method của vector:
+- at(): Truy cập vào phần tử của vector
+- size(): Trả về kích thước của vector
+- resize(): Thay đổi kích thước của vector
+- begin(): Địa chỉ của phần tử đầu tiên của vector
+- end(): Địa chỉ của phần tử cuối cùng của vector
+- push_back(): Thêm phần tử vào vị trí cuối của vector
+```C++
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+  
+    vector <int> arr1 = {2,5,7,4,9};
+    arr1.at(0) = 3;
+    arr1.resize(7);
+
+    for (int i = 0; i < arr1.size(); i++)
+    {
+        cout << "Value: " << arr1.at(i) << endl;
+    }
+    
+    arr1.push_back(10);
+
+    cout << "-----------" << endl;
+    for (int i = 0; i < arr1.size(); i++)
+    {
+        cout << "Value: " << arr1.at(i) << endl;
+    }
+    return 0;
+}
+```
+#### List
+List là một container trong STL của C++, triển khai dưới dạng danh sách liên kết hai chiều. Dưới đây là một số đặc điểm quan trọng của list:
+- Truy cập tuần tự: Truy cập các phần tử của list chỉ có thể thực hiện tuần tự, không hỗ trợ truy cập ngẫu nhiên.
+- Hiệu suất chèn và xóa: Chèn và xóa ở bất kỳ vị trí nào trong danh sách có hiệu suất tốt hơn so với vector. Điều này đặc biệt đúng khi thêm/xóa ở giữa danh sách.
+
+Một số method của list:
+- push_back():
+- pop_back():
+- insert(): Chèn một node vào list
+- erase(): Xóa một node của list
+- size(): Trả về kích thước của list
+```C++
+#include <iostream>
+#include <list>
+
+using namespace std;
+
+int main()
+{
+    list <int> arr1 = {2,5,7,4,9};
+    list <int> :: iterator it;
+    int i = 0;
+    for (it = arr1.begin(); it != arr1.end(); ++it)
+    {
+        if (i == 2)
+        {
+            arr1.insert(it,10);
+            break;
+        }
+        i++;
+    }
+    i = 0;
+    for (it = arr1.begin(); it != arr1.end(); ++it)
+    {
+        if (i == 4)
+        {
+            arr1.erase(it);
+            break;
+        }
+        i++;
+    }
+
+    for (auto const var : arr1)
+    {
+        cout << "Value: " << var << endl;
+    }
+    return 0;
+}
+```
+#### Map
+Map là một container trong STL của C++, cung cấp một cấu trúc dữ liệu ánh xạ key-value
+- Map lưu trữ các phần tử dưới dạng cặp key-value, trong đó mỗi key phải là duy nhất trong map.
+- Ta có thể thêm phần tử mới vào map bằng cách sử dụng operator [] hoặc hàm insert(). Để xóa phần tử, bạn có thể sử dụng hàm erase().
+- Ta có thể sử dụng iterator để duyệt qua các phần tử của map
+```C++
+#include <map>
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main() {
+    map<string, int> myMap;
+
+    map<string,int> ::iterator it;
+
+    myMap["one"] = 1;
+    myMap["two"] = 2;
+    myMap["three"] = 3;
+    myMap.insert(make_pair("four", 4));
+    myMap.erase("one");
+
+    for (auto const var : myMap)
+    {
+        cout << "Key: " << var.first << " , " << "Value: " << var.second << endl;
+    }
+
+    for (it = myMap.begin(); it != myMap.end(); ++it)
+    {
+        cout << "Key: " << (*it).first << " , " << "Value: " << (*it).second << endl;
+    }
+    return 0;
+}
+```
+#### Array
+
+
+### Iterator
+
+### Algorithm
+
+</details>
+</details>
