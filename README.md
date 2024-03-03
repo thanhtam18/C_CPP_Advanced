@@ -707,11 +707,402 @@ int main() {
 }
 ```
 #### Array
+Array là một container có kích thước cố định và có sẵn trong thư viện STL (Standard Template Library)
+- array có kích thước cố định được xác định tại thời điểm biên dịch và không thể thay đổi sau khi được khai báo.
+- array hỗ trợ truy cập ngẫu nhiên vào các phần tử thông qua toán tử []
+```C++
+#include <iostream>
+#include <array>
 
+using namespace std;
 
+int main()
+{
+    array <int, 5> arr = {2,3,1,7,6};
+    if (arr.empty())
+    {
+        cout << "Array is empty" << endl;
+    }
+    else
+    {
+        cout << "Array it not empty" << endl;
+    }
+    
+    for (int i = 0; i < arr.size(); i++)
+    {
+        cout << "Value: " << arr.at(i) << endl;
+    }
+    return 0;
+}
+```
 ### Iterator
+Iterator cung cấp một cách chung để duyệt qua các phần tử của một container mà không cần biết chi tiết về cách container được triển khai.
+- Iterator là một đối tượng cho phép truy cập tuần tự qua các phần tử của một container.
+- Nó giống như con trỏ, cho phép di chuyển qua các phần tử trong container.
+```C++
+#include <iostream>
+#include <list>
 
+using namespace std;
+
+int main(int argc, char const *argv[])
+{
+    list<int> arr = {1,2,3,4,5};
+    arr.push_back(7);
+    for(list<int>::iterator it = arr.begin(); it != arr.end(); it++){
+        if(*it == 2)
+            arr.insert(it,44);
+    }
+    for(list<int>::iterator it = arr.begin(); it != arr.end(); it++){
+        cout<<" "<<*it;
+    }
+    for(auto item : arr){
+        cout<<" "<<item;
+    }
+    return 0;
+}
+```
 ### Algorithm
+Thư viện STL (Standard Template Library) cung cấp một số thuật toán tiêu biểu thông qua algorithm. Các thuật toán này hoạt động trên các phạm vi hoặc các loại dữ liệu khác nhau, giúp thực hiện các nhiệm vụ như sắp xếp, tìm kiếm, chuyển đổi dữ liệu, và nhiều thao tác khác. 
+```C++
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
+using namespace std;
+
+int main()
+{
+
+    vector <int> arr = {3,5,7,4,1};
+
+    for (auto const var : arr)
+    {
+        cout << "Vector: " << var << endl;
+    }
+
+    sort(arr.begin(), arr.end());
+    
+    cout << "vector after sort ascending: " << endl;
+
+    for (auto const var : arr)
+    {
+        cout << "Vector: " << var << endl;
+    }
+
+    sort(arr.begin(), arr.end(), greater<int>());
+    
+    cout << "vector after sort descending: " << endl;
+
+    for (auto const var : arr)
+    {
+        cout << "Vector: " << var << endl;
+    }
+    return 0;
+}
+```
 </details>
+<details>
+<summary><h2>Generic Programming</h2></summary>
+
+### Function template
+Trong C++, function templates là một tính năng mạnh mẽ giúp viết các function hoặc class chung có thể được sử dụng cho nhiều kiểu dữ liệu khác nhau mà không cần phải triển khai nhiều phiên bản của cùng một function hoặc class. 
+```C++
+template <typename T>
+T myFunction(T a, T b) {
+    return a + b;
+}
+
+int result1 = myFunction(5, 10);       // Tự động suy luận T là int
+double result2 = myFunction(3.14, 2.71);  // Tự động suy luận T là double
+```
+### Class template
+Class templates trong C++ là một khái niệm tương tự như function templates, nhưng được áp dụng cho class thay vì function. Class templates cho phép bạn viết một lớp chung mà có thể được sử dụng với nhiều kiểu dữ liệu khác nhau.
+```C++
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+template <typename T>
+class MyContainer {
+private:
+    T element;
+
+public:
+    MyContainer(T val) : element(val) {}
+
+    T getValue() const {
+        return element;
+    }
+};
+
+int main()
+{
+    MyContainer<int> intContainer(42);
+    MyContainer<double> doubleContainer(3.14);
+    MyContainer<string> stringContainer("Trung");
+
+    int intValue = intContainer.getValue();
+    double doubleValue = doubleContainer.getValue();
+    string stringValue = stringContainer.getValue();
+
+    cout << "int value: " << intValue << endl;
+    cout << "double value: " << doubleValue << endl;
+    cout << "string value: " << stringValue << endl;
+
+    return 0;
+}
+```
+### Advanced template techniques
+#### Metaprogramming
+Mục đích: Tính toán giai thừa tại thời điểm biên dịch.
+```C++
+#include <iostream>
+
+template <unsigned int n>
+struct Factorial {
+ enum 
+{ 
+value = n * Factorial<n - 1>::value 
+};
+};
+
+template <>
+struct Factorial<0> {
+ enum { value = 1 };
+};
+
+int main() {
+ std::cout << "Factorial of 5 is " << Factorial<5>::value << std::endl;
+ return 0;
+}
+```
+#### Expression Templates
+Thực hiện một phép cộng đơn giản giữa hai số nguyên:
+```C++
+#include <iostream>
+
+template <typename A, typename B>
+class AddExpr {
+private:
+	const A& a;
+	const B& b;
+public:
+	AddExpr(const A& a, const B& b) : a(a), b(b) {}
+	int eval() const {
+		return a + b;
+	}
+};
+
+template <typename A, typename B>
+AddExpr<A, B> add(const A& a, const B& b) {
+	return AddExpr<A, B>(a, b);
+}
+
+int main() {
+	int x = 5,	y = 3;
+	auto expr = add(x, y);
+	std::cout << "Result: " << expr.eval() << std::endl; // Output: 8
+	return 0;
+}
+
+```
+#### Variadic Templates
+Mục đích: Tạo một hàm có thể chấp nhận số lượng tham số đầu vào không xác định.
+```C++
+#include <iostream>
+
+template <typename... Args>
+void print(Args... args) {
+ (std::cout << ... << args) << '\n';
+}
+
+int main() {
+ print(1, 2, 3, "hello", 4.5, "Trung", 55);
+ return 0;
+}
+```
+</details>
+<details>
+<summary><h2>Smart Pointer</h2></summary>
+	
+Trong C++, smart pointers là một cơ chế quản lý bộ nhớ tự động giúp giảm thiểu rủi ro của lỗi liên quan đến quản lý bộ nhớ và giúp người lập trình tránh được việc quên giải phóng bộ nhớ đã được cấp phát.
+### unique_ptr
+unique_ptr là một loại smart pointer trong C++, giúp quản lý bộ nhớ động và tự động giải phóng bộ nhớ khi không còn cần thiết. 
+
+Đặc điểm chính của unique_ptr là một unique_ptr chỉ có thể sở hữu một đối tượng hoặc mảng và khi một unique_ptr bị hủy, bộ nhớ của đối tượng sẽ được tự động giải phóng.
+```C++
+#include <iostream>
+#include <memory>
+
+using namespace std;
+
+class HinhChuNhat {
+private:
+    int ChieuDai;
+    int ChieuRong;
+public:
+    HinhChuNhat(int dai, int rong){
+        ChieuDai = dai;
+        ChieuRong = rong;
+        cout << "Constructor called. "  << endl;
+    }
+    void tinhDienTich() {
+        cout << "Dien tich: " << ChieuDai * ChieuRong << endl;
+    }
+    ~HinhChuNhat() {
+        cout << "Destructor called " << endl;
+    }
+};
+int main() {
+    unique_ptr <HinhChuNhat> ptr1(new HinhChuNhat(10,5));
+    (*ptr1).tinhDienTich();
+    //unique_ptr <HinhChuNhat> ptr2(ptr1); // Khong cho phep
+    unique_ptr <HinhChuNhat> ptr2 = move(ptr1); // gan object HinhChuNhat(10,5) cho ptr2, sau do remove ptr1
+    (*ptr2).tinhDienTich();
+    (*ptr1).tinhDienTich();
+
+    return 0;
+}
+```
+### shared_ptr
+shared_ptr là một smart pointer khác trong C++ và cũng giúp quản lý bộ nhớ động. Điểm đặc biệt của shared_ptr là nó sử dụng một bộ đếm tham chiếu để theo dõi số lượng shared_ptr đang tham chiếu đến một đối tượng, và chỉ giải phóng bộ nhớ khi không còn shared_ptr nào tham chiếu đến nó.
+```C++
+#include <iostream>
+#include <memory>
+
+using namespace std;
+
+class HinhChuNhat {
+private:
+    int ChieuDai;
+    int ChieuRong;
+public:
+    HinhChuNhat(int dai, int rong){
+        ChieuDai = dai;
+        ChieuRong = rong;
+        cout << "Constructor called. "  << endl;
+    }
+    void tinhDienTich() {
+        cout << "Dien tich: " << ChieuDai * ChieuRong << endl;
+    }
+    ~HinhChuNhat() {
+        cout << "Destructor called " << endl;
+    }
+};
+int main() {
+    shared_ptr <HinhChuNhat> ptr1 (new HinhChuNhat(40,10));
+    (*ptr1).tinhDienTich();
+    shared_ptr <HinhChuNhat> ptr2 (ptr1);
+    shared_ptr <HinhChuNhat> ptr3;
+    ptr3 = ptr2;
+    (*ptr2).tinhDienTich();
+    (*ptr1).tinhDienTich();
+    (*ptr3).tinhDienTich();
+    cout << "Count: " << ptr1.use_count() << endl;
+    cout << "Count: " << ptr2.use_count() << endl;
+    cout << "Count: " << ptr3.use_count() << endl;
+    return 0;
+}
+```
+### weak_ptr
+weak_ptr là một cơ chế giữ tham chiếu yếu (weak reference) đến một đối tượng được quản lý bởi shared_ptr. Nó cung cấp một cách an toàn để theo dõi một đối tượng mà không tăng bộ đếm tham chiếu của shared_ptr. weak_ptr không trực tiếp truy cập đến đối tượng (object) mà nó theo dõi. 
+
+weak_ptr có một phương thức là lock(), mà trả về một shared_ptr. Nếu shared_ptr mà weak_ptr theo dõi vẫn tồn tại, lock() sẽ trả về một shared_ptr hợp lệ có thể sử dụng để truy cập đối tượng. Ngược lại, nếu shared_ptr đã bị giải phóng, lock() sẽ trả về một shared_ptr rỗng.
+```C++
+#include <iostream>
+#include <memory>
+
+using namespace std;
+
+class HinhChuNhat {
+private:
+    int ChieuDai;
+    int ChieuRong;
+public:
+    HinhChuNhat(int dai, int rong){
+        ChieuDai = dai;
+        ChieuRong = rong;
+        cout << "Constructor called. "  << endl;
+    }
+    void tinhDienTich() {
+        cout << "Dien tich: " << ChieuDai * ChieuRong << endl;
+    }
+
+    ~HinhChuNhat() {
+        cout << "Destructor called " << endl;
+    }
+};
+
+int main() {
+
+    shared_ptr <HinhChuNhat> ptr1 (new HinhChuNhat(40,10));
+    shared_ptr <HinhChuNhat> ptr3(ptr1);
+    weak_ptr <HinhChuNhat> ptr2;
+    ptr2 = ptr1;
+   
+    ptr1.reset();
+    ptr3.reset();
+ 
+    if (auto ptr_lock = ptr2.lock())
+    {
+        ptr_lock->tinhDienTich();
+    }
+    else
+    {
+        cout << "Object has been deallocated" << endl;
+    }
+   
+    cout << "Count: " <<ptr2.use_count() << endl;
+    return 0;
+}
+```
+</details>
+<details>
+<summary><h2>Lambda</h2></summary>
+Lambda là một tính năng mạnh mẽ được thêm vào ngôn ngữ lập trình C++ từ phiên bản C++11. Lambda cho phép định nghĩa hàm ngắn gọn (anonymous function) mà không cần phải viết một hàm riêng biệt. Cú pháp của lambda rất linh hoạt và có thể được sử dụng để viết mã ngắn gọn và dễ đọc.
+```C++
+[capture](parameters) -> return_type {
+    // function body
+}
+```
+Capture: Cho phép bắt giữ biến từ môi trường xung quanh vào lambda.
+- []: Không bắt giữ bất kỳ biến nào từ môi trường xung quanh.
+- [var]: Bắt giữ biến var theo giá trị.
+[&var]: Bắt giữ biến var theo tham chiếu.
+- [=]: Bắt giữ tất cả biến theo giá trị.
+- [&]: Bắt giữ tất cả biến theo tham chiếu.
+Parameters (parameters): Tương tự như định nghĩa hàm, có thể bao gồm các tham số của lambda.
+Return type (return_type): Kiểu dữ liệu trả về của lambda. Có thể bị bỏ qua nếu không cần.
+Function body: Đặt trong dấu ngoặc nhọn {} và chứa mã nguồn thực thi của lambda.
+```C++
+#include <iostream>
+#include <functional>
+	
+#define PI 3.14
+
+using namespace std;
+	
+void processFunction(int a, int b, const function<void(int, int)>& func) {
+    cout << "Processing numbers: " << a << " and " << b << endl;
+    func(a, b);
+}
+int main() {
+    int a = 10;
+    const double g = 9.8;
+    processFunction(7, 9, [a](int x, int y) {
+        cout << "Product: " << x * y + a << endl;
+    });
+    processFunction(7, 9, [g](int x, int y) {
+        cout << "Product: " << x + y + g << endl;
+    });
+    processFunction(7, 9, [](int x, int y) {
+        cout << "Product: " << x - y + PI << endl;
+    });
+    return 0;
+}
+```
+</details>
+ 
 </details>
