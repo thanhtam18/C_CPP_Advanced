@@ -1061,6 +1061,7 @@ int main() {
 </details>
 <details>
 <summary><h2>Lambda</h2></summary>
+	
 Lambda là một tính năng mạnh mẽ được thêm vào ngôn ngữ lập trình C++ từ phiên bản C++11. Lambda cho phép định nghĩa hàm ngắn gọn (anonymous function) mà không cần phải viết một hàm riêng biệt. Cú pháp của lambda rất linh hoạt và có thể được sử dụng để viết mã ngắn gọn và dễ đọc.
 ```C++
 [capture](parameters) -> return_type {
